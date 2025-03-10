@@ -5,8 +5,17 @@ mongoose.connect("mongodb://root:example@178.237.199.236:27017/testdb?authSource
 
 run();
 async function run() {
-	const user = await User.create({name: "Kyle", age: 26});
-	user.name = "Sally";
-	await user.save();
-	console.log(user);
+	try {
+		const user = await User.create({
+			name: "Kyle",
+			age: 26,
+			hobbies: ["Weight Lifting", "Bowling"],
+			address: {
+				street: "Main St"
+			}
+		});
+		console.log(user);
+	} catch (e) {
+		console.log(e.message);
+	}
 };
