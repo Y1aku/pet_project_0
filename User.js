@@ -51,8 +51,18 @@ userSchema.query.byName = function(name) {
 	return this.where({name: new RegExp(name, 'i')});
 };
 
-userSchema.virtual('nameEmail').get(function() {
+userSchema.virtual('namedEmail').get(function() {
 	return `${this.name} <${this.email}>`;
+});
+
+userSchema.pre('save', function(next) {
+	this.updatedAt = Date.now();
+	throw new Error('Saving is failed');
+});
+
+userSchema.post('save', function(doc, next) {
+	doc.sayHi();
+	next();
 });
 
 module.exports = mongoose.model("User", userSchema);

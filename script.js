@@ -6,9 +6,10 @@ mongoose.connect("mongodb://root:example@178.237.199.236:27017/testdb?authSource
 run();
 async function run() {
 	try {
-		const user = await User.findOne({name: "Kyle", email: "test@gmail.com"});
+		const user = await User.findOne({name: "Kyle"});
 		console.log(user);
-		console.log(user.nameEmail);
+		await user.save();
+		console.log(user);
 	} catch (e) {
 		console.log(e.message);
 	}
